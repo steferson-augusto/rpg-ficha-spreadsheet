@@ -1,0 +1,20 @@
+/* .swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+} */
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 350px;
+  min-height: 310px;
+  background: #fff;
+  margin: 0 20px;
+}
+
+.swiper-container-3d .swiper-slide-shadow-left,
+.swiper-container-3d .swiper-slide-shadow-right {
+  background-image: none;
+}
