@@ -66,4 +66,36 @@ export default createGlobalStyle`
       transition: background 0s;
     }
   }
+
+  #check {
+    display: none;
+  }
+
+  #check:checked ~ .sidebar{
+    left: -190px;
+  }
+
+  #check:checked ~ .sidebar a span{
+    display: none;
+  }
+
+  #check:checked ~ .sidebar a{
+    font-size: 20px;
+    margin-left: 170px;
+    width: 80px;
+  }
+
+  .content{
+    margin-left: 250px;
+    padding-top: 40px;
+    background: url('background.png') no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    transition: 0.5s;
+  }
+
+  #check:checked ~ .content{
+    margin-left: 60px;
+  }
 `

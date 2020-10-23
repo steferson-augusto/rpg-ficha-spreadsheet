@@ -2,18 +2,19 @@ import Head from 'next/head'
 
 import { Text } from '../styles/pages/home'
 import { Body } from '../styles/components'
+import Structure from '../styles/components/Structure'
 
 const Home: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Parabéns!</title>
+        <title>Home</title>
       </Head>
 
       <main>
-        <Body>
-          <Text>Home</Text>
-        </Body>
+        <Structure title="Home">
+          <p>hello worlds</p>
+        </Structure>
       </main>
     </div>
   )
