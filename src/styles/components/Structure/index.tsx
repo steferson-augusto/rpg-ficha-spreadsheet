@@ -23,12 +23,12 @@ const Structure: React.FC<StructureProps> = ({ children, title }) => {
 
       <Sidebar className="sidebar">
         <Center>
-          <img src="/images/1.png" className="profile_image" alt="" />
-          <h4>Jessica</h4>
+          <img src="/images/avatar.png" className="profile_image" alt="" />
+          <h4>Haragin</h4>
         </Center>
         <a href="#">
-          <i className="fas fa-desktop"></i>
-          <span>Dashboard</span>
+          <i className="fas fa-user-cog"></i>
+          <span>Atributos</span>
         </a>
         <a href="#">
           <i className="fas fa-cogs"></i>
