@@ -1,6 +1,4 @@
-const withImages = require('next-images')
-
-module.exports = withImages({
+module.exports = {
   esModule: true,
   trailingSlash: true,
   async headers() {
@@ -16,4 +14,4 @@ module.exports = withImages({
       }
     ]
   }
-})
+}
