@@ -1,4 +1,4 @@
-import { Container, Left, LogoutButton, Sidebar, Center, Mark } from './styles'
+import { Container, Left, Sidebar, Center, Mark } from './styles'
 
 interface StructureProps {
   title: string
@@ -19,7 +19,6 @@ const Structure: React.FC<StructureProps> = ({ children, title }) => {
             </h3>
           </Left>
         </Mark>
-        <LogoutButton href="#">Logout</LogoutButton>
       </Container>
 
       <Sidebar className="sidebar">

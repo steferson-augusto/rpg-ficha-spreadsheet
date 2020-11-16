@@ -5,7 +5,7 @@ export const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #22242A;
+  background: var(--surface-1);
   padding: 20px;
   width: 100%;
   height: 30px;
@@ -28,7 +28,7 @@ export const Mark = styled.div`
 
 export const Left = styled.div`
   h3 {
-    color: #fff;
+    color: var(--text-color);
     margin: 0;
     text-transform: uppercase;
     font-size: 22px;
@@ -36,44 +36,12 @@ export const Left = styled.div`
   }
 
   span{
-    color: #19B3D3;
-  }
-`
-
-export const LogoutButton = styled.a`
-  padding: 5px;
-  background: #19B3D3;
-  text-decoration: none;
-  border-radius: 2px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: 0.5s;
-  transition-property: background;
-
-  &:hover {
-    background: #0B87A6;
-  }
-
-  label {
-    z-index: 1;
-    color: #fff;
-    position: fixed;
-    cursor: pointer;
-    left: 300px;
-    font-size: 20px;
-    margin: 5px 0;
-    transition: 0.5s;
-    transition-property: color;
-
-    &:hover {
-      color: #19B3D3;
-    }
+    color: var(--primary);
   }
 `
 
 export const Sidebar = styled.div`
-  background: #2f323a;
+  background: var(--surface-2);
   margin-top: 40px;
   padding-top: 30px;
   position: fixed;
@@ -91,13 +59,13 @@ export const Sidebar = styled.div`
   }
 
   h4 {
-    color: #ccc;
+    color: var(--text-color);
     margin-top: 0;
     margin-bottom: 20px;
   }
 
   a {
-    color: #fff;
+    color: var(--text-color);
     display: block;
     width: 100%;
     line-height: 50px;
@@ -108,7 +76,7 @@ export const Sidebar = styled.div`
     transition-property: background;
 
     &:hover {
-      background: #19B3D3;
+      background: var(--primary);
     }
   }
 
