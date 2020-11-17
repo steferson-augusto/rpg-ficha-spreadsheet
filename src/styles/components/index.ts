@@ -54,7 +54,7 @@ export const Tooltiped = styled.div<TooltipedProps>`
     width: max-content;
     max-width: 100%;
     background: var(--tooltip-color);
-    min-width: 50px;
+    min-width: 75px;
   }
 
   &:hover::before, &:hover::after {

@@ -24,6 +24,13 @@ export const Item = styled.li`
     &:hover{
       background: var(--surface-2);
     }
+
+    .icon {
+      float: right;
+      i {
+        font-size: 20px;
+      }
+    }
   }
 
   input[type="checkbox"]{

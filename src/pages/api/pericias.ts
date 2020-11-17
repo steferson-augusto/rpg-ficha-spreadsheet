@@ -9,6 +9,7 @@ interface Data {
 export interface PericiaInterface {
   rowIndex: number
   label: string
+  note?: string | null
   data: Data[]
 }
 
@@ -22,7 +23,7 @@ export const getAllPericias = async (): Promise<PericiaInterface[]> => {
 
   await doc.loadInfo()
   const sheet = doc.sheetsById["1404463700"]
-
+  await sheet.loadCells('A1:A50')
   await sheet.loadHeaderRow()
   const headers = [...sheet.headerValues]
   const label = headers.shift()
@@ -31,6 +32,7 @@ export const getAllPericias = async (): Promise<PericiaInterface[]> => {
   const pericias: PericiaInterface[] = rows.map((row, index) => ({
     rowIndex: index,
     label: row[label],
+    note: sheet.getCellByA1(`A${row.rowIndex}`).note || null,
     data: headers.map(header => ({
       label: header,
       value: row[header] || ''
@@ -59,6 +61,7 @@ export default async function (request: NextApiRequest, response: NextApiRespons
     const rows = await sheet.getRows()
     rows[rowIndex][label] = value
     rows[rowIndex].save()
+    
     response.send({ ok: true })
   }
   
