@@ -12,8 +12,6 @@ interface PericiaProps {
 }
 
 const Pericias: React.FC<PericiaProps> = ({ pericias }) => {
-  console.log(pericias)
-
   return (
     <div>
       <Head>

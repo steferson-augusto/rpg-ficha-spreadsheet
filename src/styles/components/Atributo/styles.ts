@@ -81,6 +81,7 @@ export const Dado = styled.input<DadoProps>`
   color: var(--text-color);
   font-size: 16px;
   width: ${({ length }) => `${(length + 1) * 12}px`};
+  min-width: 30px;
   text-align: center;
   outline: none;
   padding: 4px 8px;
