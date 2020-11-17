@@ -30,8 +30,8 @@ export default async function (request: NowRequest, response: NowResponse) {
     const atributo = headers.shift()
 
     const rows = await sheet.getRows({ limit: 7, offset: 0 })
-    const atributos: AtributosInterface[] = rows.map(row => ({
-      rowIndex: row.rowIndex,
+    const atributos: AtributosInterface[] = rows.map((row, index) => ({
+      rowIndex: index,
       label: row[atributo],
       data: headers.map(header => ({
         label: header,

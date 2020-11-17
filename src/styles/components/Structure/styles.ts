@@ -51,17 +51,9 @@ export const Sidebar = styled.div`
   transition: 0.5s;
   transition-property: left;
 
-  img {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    margin-bottom: 10px;
-  }
-
   h4 {
     color: var(--text-color);
-    margin-top: 0;
-    margin-bottom: 20px;
+    margin: 15px 0px;
   }
 
   a {

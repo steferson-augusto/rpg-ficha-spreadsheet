@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { Container, Left, Sidebar, Center, Mark } from './styles'
 
 interface StructureProps {
@@ -23,16 +25,16 @@ const Structure: React.FC<StructureProps> = ({ children, title }) => {
 
       <Sidebar className="sidebar">
         <Center>
-          <img src="/images/avatar.png" className="profile_image" alt="" />
+          <Image src="/images/avatar.png" width="100" height="100" />
           <h4>Haragin</h4>
         </Center>
-        <a href="#">
+        <a href="/atributos">
           <i className="fas fa-user-cog"></i>
           <span>Atributos</span>
         </a>
-        <a href="#">
-          <i className="fas fa-cogs"></i>
-          <span>Components</span>
+        <a href="/pericias">
+          <i className="fas fa-user-ninja"></i>
+          <span>Perícias</span>
         </a>
         <a href="#">
           <i className="fas fa-table"></i>
