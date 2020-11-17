@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
-import { Container, Dado, Tooltiped } from './styles'
+import { Dado, Tooltiped } from '../index'
+import { Container } from './styles'
 import { PericiaInterface } from '../../../pages/api/pericias'
 import useDebounce from '../../../hooks/useDebounce'
 

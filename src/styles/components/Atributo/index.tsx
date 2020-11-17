@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
-import { Container, Dado, Tooltiped } from './styles'
+import { Dado, Tooltiped } from '../index'
+import { Container } from './styles'
 import { AtributosInterface } from '../../../pages/api/atributos'
 import useDebounce from '../../../hooks/useDebounce'
 
@@ -33,11 +34,12 @@ const Atributo: React.FC<AtributosInterface> = ({ data, label, rowIndex }) => {
     <Container>
       <label>{label}</label>
       {values.map((dado, index) => (
-        <Tooltiped key={index} data-tooltip={dado.label}>
+        <Tooltiped key={index} data-tooltip={dado.label} background="#333">
           <Dado
             value={dado.value}
             length={dado.value.length}
             onChange={change(index)}
+            background="#333"
           />
         </Tooltiped>
       ))}
