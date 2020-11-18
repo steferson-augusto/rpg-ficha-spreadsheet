@@ -4,7 +4,7 @@ import { Item } from './styles'
 interface CollapsibleProps {
   id: string
   label: string
-  note?: string | null
+  note?: boolean
 }
 
 const Collapsible: React.FC<CollapsibleProps> = ({
@@ -18,11 +18,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
       <input type="checkbox" id={id} />
       <label htmlFor={id}>
         {label}
-        {note?.length && (
-          <Tooltiped data-tooltip={note} className="icon" background="#333">
-            <i className="fas fa-info-circle" />
-          </Tooltiped>
-        )}
+        {note && <i className="fas fa-info-circle" />}
       </label>
       <div className="item-body">{children}</div>
     </Item>

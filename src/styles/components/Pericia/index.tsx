@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
 import { Dado, Tooltiped } from '../index'
-import { Container } from './styles'
+import { Container, Note } from './styles'
 import { PericiaInterface } from '../../../pages/api/pericias'
 import useDebounce from '../../../hooks/useDebounce'
 
-const Pericia: React.FC<PericiaInterface> = ({ data, rowIndex }) => {
+const Pericia: React.FC<PericiaInterface> = ({ data, rowIndex, note }) => {
   const [values, setValues] = useState(data)
   const debounced = useRef({ value: false })
   const valueRef = useRef({ value: '', label: '' })
@@ -31,17 +31,21 @@ const Pericia: React.FC<PericiaInterface> = ({ data, rowIndex }) => {
   }, [debounce])
 
   return (
-    <Container>
-      {values.map((dado, index) => (
-        <Tooltiped key={index} data-tooltip={dado.label}>
-          <Dado
-            value={dado.value}
-            length={dado.value.length}
-            onChange={handleChange(index)}
-          />
-        </Tooltiped>
-      ))}
-    </Container>
+    <>
+      <Container>
+        {values.map((dado, index) => (
+          <Tooltiped key={index} data-tooltip={dado.label}>
+            <Dado
+              value={dado.value}
+              length={dado.value.length}
+              onChange={handleChange(index)}
+            />
+          </Tooltiped>
+        ))}
+      </Container>
+
+      {note?.length > 0 && <Note>{note}</Note>}
+    </>
   )
 }
 

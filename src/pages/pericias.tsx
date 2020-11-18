@@ -54,7 +54,7 @@ const Pericias: React.FC<PericiaProps> = ({ pericias }) => {
                     key={pericia.rowIndex}
                     id={`pericia-${pericia.rowIndex}`}
                     label={pericia.label}
-                    note={pericia.note}
+                    note={pericia?.note?.length > 0}
                   >
                     <Pericia {...pericia} />
                   </Collapsible>

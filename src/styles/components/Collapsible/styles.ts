@@ -25,11 +25,9 @@ export const Item = styled.li`
       background: var(--surface-2);
     }
 
-    .icon {
+    i {
       float: right;
-      i {
-        font-size: 20px;
-      }
+      font-size: 20px;
     }
   }
 
