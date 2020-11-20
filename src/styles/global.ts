@@ -6,7 +6,7 @@ export default createGlobalStyle`
     --text-color: #e1e1e6;
     --surface-1: #1f1f1f;
     --surface-2: #333;
-    --primary: #19B3D3;
+    --primary: #BB86FC;
   }
 
   * {

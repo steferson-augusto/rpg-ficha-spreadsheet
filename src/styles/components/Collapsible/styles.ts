@@ -29,6 +29,11 @@ export const Item = styled.li`
       float: right;
       font-size: 20px;
     }
+
+    span {
+      float: right;
+      font-size: 12px;
+    }
   }
 
   input[type="checkbox"]{
