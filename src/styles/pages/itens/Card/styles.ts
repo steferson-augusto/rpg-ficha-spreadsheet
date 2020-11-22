@@ -40,7 +40,7 @@ export const Container = styled.div<ContainerProps>`
       font-size: 12px;
       margin-left: 12px;
       background-color: var(--primary);
-      box-shadow: 0 1px 3px 0 #111;
+      box-shadow: 0 1px 3px 0 #121212;
       padding: 3px 12px;
       border-radius: 3px;
       cursor: pointer;

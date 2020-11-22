@@ -52,8 +52,9 @@ export const Tooltiped = styled.div<TooltipedProps>`
     border-radius: .3rem;
     text-align: center;
     width: max-content;
-    max-width: 30vh;
+    max-width: 30vw;
     background: var(--tooltip-color);
+    box-shadow: 0 2px 5px 0 #111;
   }
 
   &:hover::before, &:hover::after {

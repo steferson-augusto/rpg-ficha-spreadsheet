@@ -17,12 +17,18 @@ export const Close = styled.a`
   cursor: pointer;
 `
 
-export const Container = styled.div`
+interface ContainerProps {
+  visible: boolean
+}
+
+export const Container = styled.div<ContainerProps>`
   position: fixed;
+  display: ${({ visible }) => visible ? 'block' : 'none'};
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  opacity: ${props => props.visible ? 1 : 0};
   font-family: Arial, Helvetica, sans-serif;
   background: rgba(0, 0, 0, 0.8);
   z-index: 99998;

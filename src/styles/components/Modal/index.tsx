@@ -26,10 +26,8 @@ const Modal: React.ForwardRefRenderFunction<ModalProps, Props> = (
 
   useImperativeHandle(ref, () => ({ openModal, closeModal }))
 
-  if (!visible) return null
-
   return (
-    <Container>
+    <Container visible={visible}>
       <Close onClick={closeModal}>x</Close>
       {children}
     </Container>

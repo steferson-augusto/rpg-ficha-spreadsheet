@@ -57,7 +57,27 @@ export default async function (request: NextApiRequest, response: NextApiRespons
       response.send({ ok: true })
       break
     }
+    case 'PUT': {
+      const { label, weight, note, column, row } = request.body
+
+      await sheet.loadCells({
+        startRowIndex: row, endRowIndex: row + 1, startColumnIndex: column, endColumnIndex: column + 2
+      })
+
+      const item = sheet.getCell(row, column)
+      item.value = label
+      if (note) item.note = note
+      item.save()
+
+
+      const itemWeight = sheet.getCell(row, column + 1)
+      itemWeight.value = weight
+      itemWeight.save()
+
+      response.send({ ok: true })
+      break
+    }
     default:
-      response.send({ message: 'Apenas método POST é permitido' })
+      response.send({ message: 'Apenas métodos POST e PUT são permitidos' })
   }  
 }

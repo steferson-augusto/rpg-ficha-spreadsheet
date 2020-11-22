@@ -5,12 +5,13 @@ import { Container } from './styles'
 import BoardContext from '../Board/context'
 import { Tooltiped } from '../../../components/index'
 
-interface CardProps {
+export interface CardProps {
   label: string
   note?: string
   weight: number
   index: number
   listIndex: number
+  row: number
 }
 
 export interface DropInterface {
@@ -19,16 +20,11 @@ export interface DropInterface {
   listIndex: number
 }
 
-const Card: React.FC<CardProps> = ({
-  label,
-  weight,
-  index,
-  listIndex,
-  note
-}) => {
+const Card: React.FC<CardProps> = props => {
+  const { label, weight, index, listIndex, note } = props
   const [dragged, setDragged] = useState(false)
   const ref = useRef()
-  const { move } = useContext(BoardContext)
+  const { move, edit } = useContext(BoardContext)
 
   const [{ isDragging }, dragRef] = useDrag({
     item: { type: 'CARD', index, listIndex },
@@ -85,7 +81,7 @@ const Card: React.FC<CardProps> = ({
   })
 
   const handleClick = useCallback(() => {
-    console.log('clicou')
+    edit(props)
   }, [])
 
   dragRef(dropRef(ref))
