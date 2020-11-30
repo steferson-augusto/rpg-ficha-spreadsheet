@@ -15,7 +15,7 @@
     "immer": "^8.0.0",
     "lottie-web": "^5.7.4",
     "next": "^10.0.1",
-    "polished": "^4.0.3",
+    "polished": "^4.0.4",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dnd": "^11.1.3",

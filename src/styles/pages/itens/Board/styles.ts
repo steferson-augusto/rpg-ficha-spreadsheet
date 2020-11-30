@@ -21,3 +21,10 @@ export const Container = styled.div`
     border-radius: 10px;
   }
 `
+
+export const ContainerButtons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+`

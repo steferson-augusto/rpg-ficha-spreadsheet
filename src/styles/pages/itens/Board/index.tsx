@@ -7,7 +7,7 @@ import axios from 'axios'
 
 import { StorageInterface } from '../../../../pages/api/itens'
 import List from '../List'
-import { Container } from './styles'
+import { Container, ContainerButtons } from './styles'
 import BoardContext, { ItemContext } from './context'
 import { Form } from '..'
 import Modal, { ModalProps } from '../../../components/Modal'
@@ -55,7 +55,7 @@ const Board: React.FC<BoardProps> = ({ data }) => {
         label: inputNameRef.current.value,
         weight: Number(inputWeightRef.current.value),
         note: inputNoteRef.current.value,
-        id: `${row}-${column}`,
+        id: `${new Date().getTime()}`,
         column,
         row
       }
@@ -91,37 +91,58 @@ const Board: React.FC<BoardProps> = ({ data }) => {
     modalRefEdit?.current?.openModal()
   }
 
-  const handleSubmitUpdate = useCallback((e: FormEvent) => {
-    e.preventDefault()
+  const handleSubmitUpdate = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault()
+      const listIndex = listIndexRef.current.value
+      const itemIndex = itemIndexRef.current.value
+      const column = data[listIndex].column
+      const row = rowRef.current.value
+
+      const values = {
+        label: inputNameRefEdit.current.value,
+        weight: Number(inputWeightRefEdit.current.value),
+        note: inputNoteRefEdit.current.value,
+        id: `${new Date().getTime()}`,
+        row,
+        column
+      }
+
+      const storages = produce(data, draft => {
+        draft[listIndex].itens[itemIndex] = values
+      })
+
+      mutate('/api/itens/', storages, false)
+      axios.put('/api/item/', values)
+
+      modalRefEdit?.current?.closeModal()
+    },
+    [data]
+  )
+
+  const handleDelete = useCallback(() => {
     const listIndex = listIndexRef.current.value
     const itemIndex = itemIndexRef.current.value
-    const column = data[listIndex].column
-    const row = rowRef.current.value
-
-    const values = {
-      label: inputNameRefEdit.current.value,
-      weight: Number(inputWeightRefEdit.current.value),
-      note: inputNoteRefEdit.current.value,
-      id: `${new Date().getTime()}`,
-      row,
-      column
-    }
 
     const storages = produce(data, draft => {
-      draft[listIndex].itens[itemIndex] = values
+      draft[listIndex].itens.splice(itemIndex, 1)
+      draft[listIndex].itens.forEach((item, index) => {
+        item.row = index + 1
+      })
     })
 
     mutate('/api/itens/', storages, false)
-    axios.put('/api/item/', values)
+    const storage = storages[listIndex]
+    axios.patch('/api/item/', { storage })
 
     modalRefEdit?.current?.closeModal()
-  }, [])
+  }, [data])
 
   return (
     <DndProvider backend={HTML5Backend}>
       <BoardContext.Provider value={{ lists: data, move, create, edit }}>
         <Container>
-          {data.map((storage, index) => (
+          {data?.map((storage, index) => (
             <List key={storage.column} data={storage} index={index} />
           ))}
         </Container>
@@ -187,9 +208,19 @@ const Board: React.FC<BoardProps> = ({ data }) => {
                 type="text"
                 pattern=".+"
               />
-              <Button icon="save" type="submit">
-                SALVAR
-              </Button>
+              <ContainerButtons>
+                <Button
+                  icon="trash"
+                  background="#CF6679"
+                  onClick={handleDelete}
+                  type="button"
+                >
+                  APAGAR
+                </Button>
+                <Button icon="save" type="submit">
+                  SALVAR
+                </Button>
+              </ContainerButtons>
             </Form>
           </div>
         </Modal>

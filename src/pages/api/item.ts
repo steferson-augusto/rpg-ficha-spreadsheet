@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { GoogleSpreadsheet, Border, Color } from 'google-spreadsheet'
+import { StorageInterface } from './itens'
 
 export default async function (request: NextApiRequest, response: NextApiResponse) {  
   const doc = new GoogleSpreadsheet('1BdsSgMeU4HeP-OP9kwX24ikUqaiGuDiit3moNb52Tdo')
@@ -76,6 +77,45 @@ export default async function (request: NextApiRequest, response: NextApiRespons
 
       response.send({ ok: true })
       break
+    }
+    case 'PATCH': {
+      try {
+        const storage: StorageInterface = request.body.storage
+        const column = storage.column
+        const length = storage.itens.length
+        const row = storage.itens.length + 1
+        await sheet.loadCells({
+          startRowIndex: 0, endRowIndex: row + 1, startColumnIndex: column, endColumnIndex: column + 2
+        })
+
+        storage.itens.forEach(async item => {
+          const labelCell = sheet.getCell(item.row, column)
+          labelCell.value = item.label
+          labelCell.note = item.note || ''
+          await labelCell.save()
+
+          const weightCell = sheet.getCell(item.row, column + 1)
+          weightCell.value = Number(item.weight)
+          await weightCell.save()
+        })
+        
+        const clearCell = sheet.getCell(length + 1, column)
+        clearCell.value = ''
+        clearCell.note = ''
+        clearCell.clearAllFormatting()
+        await clearCell.save()
+        
+        const clearWeight = sheet.getCell(length + 1, column + 1)
+        clearWeight.value = ''
+        clearWeight.clearAllFormatting()
+        await clearWeight.save()
+
+        response.send({ ok: true })
+        break
+      } catch (error) {
+        response.send({ ok: false })
+        break
+      }
     }
     default:
       response.send({ message: 'Apenas métodos POST e PUT são permitidos' })

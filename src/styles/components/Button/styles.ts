@@ -1,10 +1,11 @@
 import { ButtonHTMLAttributes } from 'react'
 import styled from 'styled-components'
-import { lighten } from 'polished'
+import { darken } from 'polished'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean
   icon?: string
+  background?: string
 }
 
 export const Container = styled.button<ButtonProps>`
@@ -27,14 +28,17 @@ export const Container = styled.button<ButtonProps>`
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 
-  background-color: var(--primary);
+  background-color: ${({ background }) => background || 'var(--primary)'};
   color: #222;
 
   transition: background-color 0.3s;
 
   &:hover,
   &:focus {
-    background-color: #d4b3fd;
+    background-color: ${props => {
+      const color = props.background || '#BB86FC'
+      return darken(0.1, color)
+    }};
   }
 
   & > * {

@@ -4,22 +4,18 @@ import Structure from '../styles/components/Structure'
 import useSWR from '../hooks/useSWR'
 import Animation from '../styles/components/Animation'
 import { Body } from '../styles/pages/itens'
-import { StorageInterface } from './api/itens'
-import Board from '../styles/pages/itens/Board'
 
-const Itens: React.FC = () => {
-  const { data, loading } = useSWR<StorageInterface[]>('/api/itens/')
-
+const Carteira = () => {
   return (
     <div>
       <Head>
-        <title>Itens</title>
+        <title>Carteira</title>
       </Head>
 
       <main>
         <Structure title="Itens">
           <Body>
-            {loading ? <Animation width="50vh" /> : <Board data={data} />}
+            <p>Carteira</p>
           </Body>
         </Structure>
       </main>
@@ -27,4 +23,4 @@ const Itens: React.FC = () => {
   )
 }
 
-export default Itens
+export default Carteira

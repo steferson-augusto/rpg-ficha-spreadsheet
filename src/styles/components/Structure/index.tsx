@@ -14,7 +14,7 @@ const Structure: React.FC<StructureProps> = ({ children, title }) => {
       <Container>
         <Mark>
           <label htmlFor="check">
-            <i className="fas fa-bars" id="sidebar_btn"></i>
+            <i className="fas fa-bars" id="sidebar_btn" />
           </label>
           <Left>
             <h3>
@@ -31,20 +31,26 @@ const Structure: React.FC<StructureProps> = ({ children, title }) => {
         </Center>
         <Link href="/atributos">
           <a>
-            <i className="fas fa-user-cog"></i>
+            <i className="fas fa-user-cog" />
             <span>Atributos</span>
           </a>
         </Link>
         <Link href="/pericias">
           <a>
-            <i className="fas fa-user-ninja"></i>
+            <i className="fas fa-user-ninja" />
             <span>Perícias</span>
           </a>
         </Link>
         <Link href="/itens">
           <a>
-            <i className="fas fa-boxes"></i>
+            <i className="fas fa-boxes" />
             <span>Itens</span>
+          </a>
+        </Link>
+        <Link href="/carteira">
+          <a>
+            <i className="fas fa-wallet" />
+            <span>Carteira</span>
           </a>
         </Link>
       </Sidebar>

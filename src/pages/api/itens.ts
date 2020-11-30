@@ -29,17 +29,29 @@ export default async function (request: NextApiRequest, response: NextApiRespons
 
   switch (request.method) {
     case 'GET': {
-      await sheet.loadCells([])
-
+      const loadItems = async (col) => {
+        await sheet.loadCells({ startRowIndex: 0, endRowIndex: 2, startColumnIndex: col, endColumnIndex: col+2 })
+        const { value: cont } = sheet.getCell(0, col)
+        if (cont !== null) {
+          await sheet.loadCells({
+            startRowIndex: 2,
+            endRowIndex: (cont as number) + 3,
+            startColumnIndex: col,
+            endColumnIndex: col+2
+          })
+        }
+      }
+      
       let column = 0
       let repeat = false
       let storage: StorageInterface[] = []
       do {
         repeat = false
-        const cel = sheet.getCell(0, column)
+        await loadItems(column)
+        const cel = sheet.getCell(1, column)
         if (cel.value) {
           let itens: ItemInterface[] = []
-          let row = 1
+          let row = 2
           let loop = false
           do {
             loop = false
@@ -47,7 +59,7 @@ export default async function (request: NextApiRequest, response: NextApiRespons
             if (label) {
               const note = sheet.getCell(row, column).note as string || null
               const weight = Number(sheet.getCell(row, column + 1).value) || 0
-              const id = `${row}-${column}`
+              const id = `${(new Date()).getTime()}${row}${column}`
               itens.push({ label, weight, row, note, id })
 
               loop = true
