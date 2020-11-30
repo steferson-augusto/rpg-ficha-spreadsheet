@@ -32,6 +32,7 @@ const Board: React.FC<BoardProps> = ({ data }) => {
   const listIndexRef = useRef({ value: 0 })
   const itemIndexRef = useRef({ value: 0 })
   const rowRef = useRef({ value: 1 })
+  const oldIndex = useRef({ value: -1 })
 
   function move(fromList, toList, from, to) {
     const list = produce(data, draft => {
@@ -42,6 +43,10 @@ const Board: React.FC<BoardProps> = ({ data }) => {
     })
 
     mutate('/api/itens/', list, false)
+  }
+
+  const setOldIndex = (list: number) => {
+    oldIndex.current.value = list
   }
 
   const handleSubmitAdd = useCallback(
@@ -90,6 +95,16 @@ const Board: React.FC<BoardProps> = ({ data }) => {
 
     modalRefEdit?.current?.openModal()
   }
+
+  const updateStorage = useCallback(
+    (dragged: number, target: number) => {
+      let storages = []
+      storages.push(data[dragged])
+      if (dragged !== target) storages.push(data[target])
+      axios.put('/api/itens/', { storages })
+    },
+    [data]
+  )
 
   const handleSubmitUpdate = useCallback(
     (e: FormEvent) => {
@@ -140,7 +155,17 @@ const Board: React.FC<BoardProps> = ({ data }) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <BoardContext.Provider value={{ lists: data, move, create, edit }}>
+      <BoardContext.Provider
+        value={{
+          lists: data,
+          oldIndex,
+          move,
+          create,
+          edit,
+          setOldIndex,
+          updateStorage
+        }}
+      >
         <Container>
           {data?.map((storage, index) => (
             <List key={storage.column} data={storage} index={index} />

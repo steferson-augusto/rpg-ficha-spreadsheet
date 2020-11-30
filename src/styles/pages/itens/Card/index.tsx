@@ -24,7 +24,10 @@ const Card: React.FC<CardProps> = props => {
   const { label, weight, index, listIndex, note } = props
   const [dragged, setDragged] = useState(false)
   const ref = useRef()
-  const { move, edit } = useContext(BoardContext)
+
+  const { move, edit, oldIndex, setOldIndex, updateStorage } = useContext(
+    BoardContext
+  )
 
   const [{ isDragging }, dragRef] = useDrag({
     item: { type: 'CARD', index, listIndex },
@@ -69,6 +72,10 @@ const Card: React.FC<CardProps> = props => {
           return
         }
 
+        if (oldIndex.current.value === -1) {
+          setOldIndex(draggedListIndex)
+        }
+
         move(draggedListIndex, targetListIndex, draggedIndex, targetIndex)
         item.index = targetIndex
         item.listIndex = targetListIndex
@@ -76,6 +83,9 @@ const Card: React.FC<CardProps> = props => {
     },
     drop() {
       setDragged(false)
+      updateStorage(oldIndex.current.value, listIndex)
+      setOldIndex(-1)
+
       return null
     }
   })

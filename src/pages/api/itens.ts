@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { GoogleSpreadsheet } from 'google-spreadsheet'
+import { GoogleSpreadsheet, Border, Color } from 'google-spreadsheet'
 
 export interface ItemInterface {
   label: string
@@ -14,6 +14,28 @@ export interface StorageInterface {
   column: number
   itens: ItemInterface[]
   note?: string
+}
+
+const formatCell = cell => {
+  const bordered: Border = {
+    style: "SOLID",
+    width: 1,
+    color: {} as Color,
+    colorStyle: {
+      rgbColor: {} as Color,
+      themeColor: null
+    }
+  }
+
+  const textFormat = {
+    fontFamily: "Arial",
+    fontSize: 10
+  }
+
+  cell.borders = { top: bordered, bottom: bordered, left: bordered, right: bordered }
+  cell.verticalAlignment = "MIDDLE"
+  cell.horizontalAlignment = "CENTER"
+  cell.textFormat = textFormat
 }
 
 export default async function (request: NextApiRequest, response: NextApiResponse) {  
@@ -78,7 +100,48 @@ export default async function (request: NextApiRequest, response: NextApiRespons
       response.send(storage)
       break
     }
+    case 'PUT': {
+      const { storages } = request.body
+
+      storages?.forEach(async (storage: StorageInterface) => {
+        const length = storage.itens.length
+        const col = storage.column
+        await sheet.loadCells({
+          startRowIndex: 1,
+          endRowIndex: length + 3,
+          startColumnIndex: col,
+          endColumnIndex: col+2
+        })
+
+        storage.itens.forEach((item, index) => {
+          const cel = sheet.getCell(index + 2, col)
+          cel.value = item.label
+          cel.note = item.note
+          formatCell(cel)
+          cel.save()
+
+          const celWeight = sheet.getCell(index + 2, col + 1)
+          celWeight.value = item.weight
+          formatCell(celWeight)
+          celWeight.save()
+        })
+
+        const clearCellName = sheet.getCell(length + 2, col)
+        clearCellName.value = ''
+        clearCellName.note = ''
+        clearCellName.clearAllFormatting()
+        clearCellName.save()
+
+        const clearCellWeight = sheet.getCell(length + 2, col + 1)
+        clearCellWeight.value = ''
+        clearCellWeight.note = ''
+        clearCellWeight.clearAllFormatting()
+        clearCellWeight.save()
+      })
+    
+      response.send({ ok: true })
+    }
     default:
-      response.send({ message: 'Apenas método GET é permitido' })
+      response.send({ message: 'Apenas métodos GET e PUT são permitidos' })
   }  
 }
